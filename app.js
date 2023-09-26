@@ -17,7 +17,7 @@ const hours = [
 ];
 
 // give a random number between two numbers
-function getNumber(min, max) {
+function getRndNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -29,34 +29,31 @@ const seattle = {
   customPerHour: [],
   cookiesPerCustom: 6.3,
   cookiesPerHour: [],
-  cookiesPerDay: 0,
+  cookiesSold: 0,
 
-  calcCookiesPerHour: function () {
+  calcCookiesSold: function () {
     for (let i = 0; i < hours.length; i++) {
       // fill customPerHour with random numbers
-      const randNum = getNumber(this.customMin, this.customMax);
-      this.customPerHour.push(randNum);
+      const rndNum = getRndNum(this.customMin, this.customMax);
+      this.customPerHour.push(rndNum);
       // fill cookiesPerHour
-      this.cookiesPerHour.push(randNum * this.cookiesPerCustom);
+      this.cookiesPerHour.push(Math.floor(rndNum * this.cookiesPerCustom));
     }
   },
 };
 
-// get parent element
-const cookiesList = document.getElementById("cookiesList");
+// calculate cookies sold in every hour
+seattle.calcCookiesSold();
 
-// create a new element, or elements, that represent frankie
-// const article = document.createElement("article");
+// get parent element
+const salesList = document.getElementById("salesList");
 
 // create list
-const ul = document.createElement("ul");
+const seattleUl = document.createElement("ul");
 for (let j = 0; j < hours.length; j++) {
   const li = document.createElement("li");
-  li.textContent = hours[j] + seattle.cookiesPerHour[j];
-  ul.appendChild(li);
+  li.textContent = `${hours[j]}: ${seattle.cookiesPerHour[j]} cookies`;
+  seattleUl.appendChild(li);
 }
 
-seattle.calcCookiesPerHour();
-console.log(seattle);
-
-cookiesList.appendChild(ul);
+salesList.appendChild(seattleUl);
