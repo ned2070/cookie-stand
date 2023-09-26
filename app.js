@@ -22,38 +22,39 @@ function getRndNum(min, max) {
 }
 
 // cookie shop object
-const seattle = {
-  shopLocation: "Seattle",
-  customMin: 23,
-  customMax: 65,
-  customPerHour: [],
-  cookiesPerCustom: 6.3,
-  cookiesPerHour: [],
-  cookiesSold: 0,
-
-  calcCookiesSold: function () {
+function Cookieshop(
+  shopLocation,
+  customMin,
+  customMax,
+  customPerHour,
+  cookiesPerCustom,
+  cookiesPerHour,
+  cookiesPerDay
+) {
+  this.shopLocation = shopLocation;
+  this.customMin = customMin;
+  this.customMax = customMax;
+  this.customPerHour = function () {
     for (let i = 0; i < hours.length; i++) {
       // fill customPerHour with random numbers
       const rndNum = getRndNum(this.customMin, this.customMax);
       this.customPerHour.push(rndNum);
+      // this.CustomPerHour = rndNum;
+      console.log(rndNum);
+      //console.log(this.customPerHour);
+    }
+  };
+  this.cookiesPerCustom = cookiesPerCustom;
+  this.cookiesPerHour = function () {
+    for (let i = 0; i < hours.length; i++) {
       // fill cookiesPerHour
       this.cookiesPerHour.push(Math.floor(rndNum * this.cookiesPerCustom));
     }
-  },
-};
-
-// calculate cookies sold in every hour
-seattle.calcCookiesSold();
-
-// get parent element
-const salesList = document.getElementById("salesList");
-
-// create list
-const seattleUl = document.createElement("ul");
-for (let j = 0; j < hours.length; j++) {
-  const li = document.createElement("li");
-  li.textContent = `${hours[j]}: ${seattle.cookiesPerHour[j]} cookies`;
-  seattleUl.appendChild(li);
+  };
+  this.cookiesPerDay = cookiesPerDay;
 }
 
-salesList.appendChild(seattleUl);
+// instantiate seattle
+const seattle = new Cookieshop("Seattle", 23, 65, [], 6.3, [], 0);
+
+console.log(seattle.customPerHour);
