@@ -21,40 +21,53 @@ function getRndNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// cookie shop object
-function Cookieshop(
-  shopLocation,
-  customMin,
-  customMax,
-  customPerHour,
-  cookiesPerCustom,
-  cookiesPerHour,
-  cookiesPerDay
-) {
+// constructor for cookie shop objects
+function Cookieshop(shopLocation, customMin, customMax, cookiesPerCustom) {
   this.shopLocation = shopLocation;
   this.customMin = customMin;
   this.customMax = customMax;
-  this.customPerHour = function () {
-    for (let i = 0; i < hours.length; i++) {
-      // fill customPerHour with random numbers
-      const rndNum = getRndNum(this.customMin, this.customMax);
-      this.customPerHour.push(rndNum);
-      // this.CustomPerHour = rndNum;
-      console.log(rndNum);
-      //console.log(this.customPerHour);
-    }
-  };
   this.cookiesPerCustom = cookiesPerCustom;
-  this.cookiesPerHour = function () {
-    for (let i = 0; i < hours.length; i++) {
-      // fill cookiesPerHour
-      this.cookiesPerHour.push(Math.floor(rndNum * this.cookiesPerCustom));
-    }
-  };
-  this.cookiesPerDay = cookiesPerDay;
+  this.customPerHour = [];
+  this.cookiesPerHour = [];
+  this.cookiesPerDay = 0;
 }
 
-// instantiate seattle
-const seattle = new Cookieshop("Seattle", 23, 65, [], 6.3, [], 0);
+// cookie shop prototype - add function
+Cookieshop.prototype.calcCookiesSold = function () {
+  for (let i = 0; i < hours.length; i++) {
+    // fill customPerHour with random numbers
+    const customHourly = getRndNum(this.customMin, this.customMax);
+    console.log(customHourly);
+    this.customPerHour.push(customHourly);
 
-console.log(seattle.customPerHour);
+    // fill cookiesPerHour
+    const cookiesHourly = Math.floor(customHourly * this.cookiesPerCustom);
+    this.cookiesPerHour.push(cookiesHourly);
+  }
+};
+
+// instantiate shops
+const seattle = new Cookieshop("Seattle", 23, 65, 6.3);
+const tokyo = new Cookieshop("Tokyo", 3, 24, 1.2);
+const dubai = new Cookieshop("Dubai", 11, 38, 3.7);
+const paris = new Cookieshop("Paris", 20, 38, 2.3);
+const lima = new Cookieshop("Lima", 2, 16, 4.6);
+
+// fill arrays for each shop
+seattle.calcCookiesSold();
+tokyo.calcCookiesSold();
+dubai.calcCookiesSold();
+paris.calcCookiesSold();
+lima.calcCookiesSold();
+
+// test arrays
+//console.log(seattle.customPerHour);
+//console.log(seattle.cookiesPerHour);
+//console.log(tokyo.customPerHour);
+//console.log(tokyo.cookiesPerHour);
+//console.log(dubai.customPerHour);
+//console.log(dubai.cookiesPerHour);
+//console.log(paris.customPerHour);
+//console.log(paris.cookiesPerHour);
+//console.log(lima.customPerHour);
+//console.log(lima.cookiesPerHour);
