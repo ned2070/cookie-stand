@@ -1,3 +1,25 @@
+table {
+  font-family: monospace;
+}
+
+tr:nth-child(odd) {
+  background-color: lightblue;
+}
+
+tr:nth-child(even) {
+  background-color: lightgrey;
+}
+
+th {
+  background-color: darkgrey;
+  color: darkblue;
+  padding: 16px;
+}
+
+td {
+  padding: 10px;
+}
+
 fieldset {
   display: flex;
   flex-direction: column;

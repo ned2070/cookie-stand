@@ -37,6 +37,9 @@ Cookieshop.prototype.calcCookiesSold = function () {
   for (let i = 0; i < hours.length; i++) {
     // fill customPerHour with random numbers
     const customHourly = getRndNum(this.customMin, this.customMax);
+    // test
+    console.log(this.customMin);
+    console.log(this.customMax);
     console.log(customHourly);
     this.customPerHour.push(customHourly);
 
@@ -55,6 +58,7 @@ const tokyo = new Cookieshop("Tokyo", 3, 24, 1.2);
 const dubai = new Cookieshop("Dubai", 11, 38, 3.7);
 const paris = new Cookieshop("Paris", 20, 38, 2.3);
 const lima = new Cookieshop("Lima", 2, 16, 4.6);
+//const London = new Cookieshop("London", 12, 44, 5.5);
 
 // fill arrays for each shop
 seattle.calcCookiesSold();
@@ -62,6 +66,7 @@ tokyo.calcCookiesSold();
 dubai.calcCookiesSold();
 paris.calcCookiesSold();
 lima.calcCookiesSold();
+//London.calcCookiesSold();
 
 // get the table from the HTML so we can add rows
 const table = document.getElementById("shopData");
@@ -120,16 +125,34 @@ tokyo.render();
 dubai.render();
 paris.render();
 lima.render();
-
-//function formSubmit(event) {
-// console.log("submitted");
-//}
+//London.render();
 
 // Get the form from the html
 const form = document.getElementById("form");
 
 // add event listener to form
-form.addEventListener("submit", function () {
+form.addEventListener("submit", function (event) {
+  // prevent page reloading
+  event.preventDefault();
   //test function
   //console.log("submitted");
+  const shopLocation = event.target.newShopLocation.value;
+  const customMin = event.target.newCustomMin.value;
+  const customMax = event.target.newCustomMax.value;
+  const cookiesPerCustom = event.target.newCookiesPerCustom.value;
+
+  const newShop = new Cookieshop(
+    shopLocation,
+    customMin,
+    customMax,
+    cookiesPerCustom
+  );
+
+  //console.log(newShop.shopLocation);
+  //console.log(newShop.customMin);
+  //console.log(newShop.customMax);
+  //console.log(newShop.cookiesPerCustom);
+
+  newShop.calcCookiesSold();
+  newShop.render();
 });
