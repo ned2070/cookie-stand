@@ -32,7 +32,7 @@ function Cookieshop(shopLocation, customMin, customMax, cookiesPerCustom) {
   this.cookiesPerDay = 0;
 }
 
-// cookie shop prototype - add function
+// cookie shop prototype - add function to calculate cookies sold
 Cookieshop.prototype.calcCookiesSold = function () {
   for (let i = 0; i < hours.length; i++) {
     // fill customPerHour with random numbers
@@ -44,7 +44,7 @@ Cookieshop.prototype.calcCookiesSold = function () {
     const cookiesHourly = Math.floor(customHourly * this.cookiesPerCustom);
     this.cookiesPerHour.push(cookiesHourly);
 
-    // calculate cookiesPerDay
+    // sum cookiesPerDay
     this.cookiesPerDay = this.cookiesPerDay + cookiesHourly;
   }
 };
@@ -66,6 +66,7 @@ lima.calcCookiesSold();
 // get the table from the HTML so we can add rows
 const table = document.getElementById("shopData");
 
+// cookieshop prototype - add function to render table row on page
 Cookieshop.prototype.render = function () {
   // create a row
   const tr = document.createElement("tr");
@@ -91,13 +92,6 @@ Cookieshop.prototype.render = function () {
   // add that row to the table
   table.appendChild(tr);
 };
-
-// claculate sales for each store (commented out because the calculate sales in the render method)
-// seattle.calculateSales()
-// tokyo.calculateSales()
-// dubai.calculateSales()
-// paris.calculateSales()
-// lima.calculateSales()
 
 // render the header row
 // create the tr
@@ -127,14 +121,15 @@ dubai.render();
 paris.render();
 lima.render();
 
-// test arrays
-//console.log(seattle.customPerHour);
-//console.log(seattle.cookiesPerHour);
-//console.log(tokyo.customPerHour);
-//console.log(tokyo.cookiesPerHour);
-//console.log(dubai.customPerHour);
-//console.log(dubai.cookiesPerHour);
-//console.log(paris.customPerHour);
-//console.log(paris.cookiesPerHour);
-//console.log(lima.customPerHour);
-//console.log(lima.cookiesPerHour);
+//function formSubmit(event) {
+// console.log("submitted");
+//}
+
+// Get the form from the html
+const form = document.getElementById("form");
+
+// add event listener to form
+form.addEventListener("submit", function () {
+  //test function
+  //console.log("submitted");
+});
