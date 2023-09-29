@@ -16,6 +16,12 @@ const hours = [
   "7pm",
 ];
 
+// number of shops
+let shopMumber = 5;
+
+// declare array of shops
+let shopList = [];
+
 // give a random number between two numbers
 function getRndNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,17 +38,32 @@ function Cookieshop(shopLocation, customMin, customMax, cookiesPerCustom) {
   this.cookiesPerDay = 0;
 }
 
+// instantiate shops
+//const seattle = new Cookieshop("Seattle", 23, 65, 6.3);
+//const tokyo = new Cookieshop("Tokyo", 3, 24, 1.2);
+//const dubai = new Cookieshop("Dubai", 11, 38, 3.7);
+//const paris = new Cookieshop("Paris", 20, 38, 2.3);
+//const lima = new Cookieshop("Lima", 2, 16, 4.6);
+//const London = new Cookieshop("London", 12, 44, 5.5);
+
+shopList[0] = new Cookieshop("Seattle", 23, 65, 6.3);
+shopList[1] = new Cookieshop("Tokyo", 3, 24, 1.2);
+shopList[2] = new Cookieshop("Dubai", 11, 38, 3.7);
+shopList[3] = new Cookieshop("Paris", 20, 38, 2.3);
+shopList[4] = new Cookieshop("Lima", 2, 16, 4.6);
+//shopList[5] = new Cookieshop("Leeds", 2, 16, 4.6);
+
 // cookie shop prototype - add function to calculate cookies sold
 Cookieshop.prototype.calcCookiesSold = function () {
   for (let i = 0; i < hours.length; i++) {
     // fill customPerHour with random numbers
     const customHourly = getRndNum(this.customMin, this.customMax);
     // test
-    console.log(this.customMin);
-    console.log(this.customMax);
-    console.log(customHourly);
+    //console.log(this.customMin);
+    //console.log(this.customMax);
+    //console.log(customHourly);
     this.customPerHour.push(customHourly);
-
+    console.log(this.customPerHour);
     // fill cookiesPerHour
     const cookiesHourly = Math.floor(customHourly * this.cookiesPerCustom);
     this.cookiesPerHour.push(cookiesHourly);
@@ -52,21 +73,17 @@ Cookieshop.prototype.calcCookiesSold = function () {
   }
 };
 
-// instantiate shops
-const seattle = new Cookieshop("Seattle", 23, 65, 6.3);
-const tokyo = new Cookieshop("Tokyo", 3, 24, 1.2);
-const dubai = new Cookieshop("Dubai", 11, 38, 3.7);
-const paris = new Cookieshop("Paris", 20, 38, 2.3);
-const lima = new Cookieshop("Lima", 2, 16, 4.6);
-//const London = new Cookieshop("London", 12, 44, 5.5);
-
 // fill arrays for each shop
-seattle.calcCookiesSold();
-tokyo.calcCookiesSold();
-dubai.calcCookiesSold();
-paris.calcCookiesSold();
-lima.calcCookiesSold();
+//seattle.calcCookiesSold();
+//tokyo.calcCookiesSold();
+//dubai.calcCookiesSold();
+//paris.calcCookiesSold();
+//lima.calcCookiesSold();
 //London.calcCookiesSold();
+
+for (i = 0; i < shopList.length; i++) {
+  shopList[i].calcCookiesSold();
+}
 
 // get the table from the HTML so we can add rows
 const table = document.getElementById("shopData");
@@ -117,15 +134,20 @@ totalHeading.textContent = "Total";
 headerRow.appendChild(totalHeading);
 
 // add the row to the table
+
 table.appendChild(headerRow);
 
 // render each store on the page
-seattle.render();
-tokyo.render();
-dubai.render();
-paris.render();
-lima.render();
+//seattle.render();
+//tokyo.render();
+//dubai.render();
+//paris.render();
+//lima.render();
 //London.render();
+
+for (j = 0; j < shopList.length; j++) {
+  shopList[j].render();
+}
 
 // Get the form from the html
 const form = document.getElementById("form");
@@ -137,9 +159,9 @@ form.addEventListener("submit", function (event) {
   //test function
   //console.log("submitted");
   const shopLocation = event.target.newShopLocation.value;
-  const customMin = event.target.newCustomMin.value;
-  const customMax = event.target.newCustomMax.value;
-  const cookiesPerCustom = event.target.newCookiesPerCustom.value;
+  const customMin = +event.target.newCustomMin.value;
+  const customMax = +event.target.newCustomMax.value;
+  const cookiesPerCustom = +event.target.newCookiesPerCustom.value;
 
   const newShop = new Cookieshop(
     shopLocation,
@@ -148,11 +170,17 @@ form.addEventListener("submit", function (event) {
     cookiesPerCustom
   );
 
+  shopList.push(newShop);
+  newShop.calcCookiesSold();
+  newShop.render();
+
+  //console.log(shopList.length);
+
   //console.log(newShop.shopLocation);
   //console.log(newShop.customMin);
   //console.log(newShop.customMax);
   //console.log(newShop.cookiesPerCustom);
 
-  newShop.calcCookiesSold();
-  newShop.render();
+  //newShop.calcCookiesSold();
+  //newShop.render();
 });
