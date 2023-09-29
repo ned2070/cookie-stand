@@ -44,14 +44,12 @@ function Cookieshop(shopLocation, customMin, customMax, cookiesPerCustom) {
 //const dubai = new Cookieshop("Dubai", 11, 38, 3.7);
 //const paris = new Cookieshop("Paris", 20, 38, 2.3);
 //const lima = new Cookieshop("Lima", 2, 16, 4.6);
-//const London = new Cookieshop("London", 12, 44, 5.5);
 
 shopList[0] = new Cookieshop("Seattle", 23, 65, 6.3);
 shopList[1] = new Cookieshop("Tokyo", 3, 24, 1.2);
 shopList[2] = new Cookieshop("Dubai", 11, 38, 3.7);
 shopList[3] = new Cookieshop("Paris", 20, 38, 2.3);
 shopList[4] = new Cookieshop("Lima", 2, 16, 4.6);
-//shopList[5] = new Cookieshop("Leeds", 2, 16, 4.6);
 
 // cookie shop prototype - add function to calculate cookies sold
 Cookieshop.prototype.calcCookiesSold = function () {
@@ -149,6 +147,47 @@ for (j = 0; j < shopList.length; j++) {
   shopList[j].render();
 }
 
+// create the bottom row
+function renderBottomRow() {
+  // delete old bottomRows
+  const oldBottomRow = document.getElementById("bottomrow");
+
+  if (oldBottomRow !== null) {
+    oldBottomRow.remove();
+  }
+
+  // make a new tr
+  const tr = document.createElement("tr");
+  tr.setAttribute("id", "bottomrow");
+
+  // add a "bottom row" heading
+  const th = document.createElement("th");
+  th.textContent = "Hourly Total";
+  tr.appendChild(th);
+
+  // loop round the hours
+  for (let i = 0; i < hours.length; i++) {
+    let hourlyTotal = 0;
+
+    // within each iteration of the hours loop:
+    for (let k = 0; k < shopList.length; k++) {
+      // we are going to loop round the stores array and get ONLY that hours data
+      hourlyTotal = hourlyTotal + shopList[k].cookiesPerHour[i];
+      // hourlyTotal += stores[k].cookiesPerHour[i]; // another way of doing the above line
+    }
+
+    // add the hourly total td to the row
+    const td = document.createElement("td");
+    td.textContent = hourlyTotal;
+    tr.appendChild(td);
+  }
+
+  // add the tr to the table
+  table.appendChild(tr);
+}
+
+renderBottomRow();
+
 // Get the form from the html
 const form = document.getElementById("form");
 
@@ -173,6 +212,8 @@ form.addEventListener("submit", function (event) {
   shopList.push(newShop);
   newShop.calcCookiesSold();
   newShop.render();
+
+  renderBottomRow();
 
   //console.log(shopList.length);
 

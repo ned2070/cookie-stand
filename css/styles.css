@@ -1,0 +1,85 @@
+body {
+  background-color: bisque;
+}
+
+img {
+  max-width: 20%;
+  height: auto;
+}
+
+.text {
+  font-family: Times;
+  color: black'
+}
+
+.data {
+  font-family: Arial;
+  color: darkgreen;
+}
+
+.highlight {
+  @font-face {
+    font-family: "Croissant_One";
+    src: url(" ./assets/Croissant_One.ttf") format("truetype");
+  }
+  color:darkred;
+}
+
+header {
+  background-color: lightsalmon;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+article {margin: auto;
+width: 60%;
+}
+
+div {
+  background-color:lightyellow;
+  padding: 20px;
+  border-style: hidden;
+  margin: auto;
+  width: 30%;
+}
+
+table {
+  
+  background-color: antiquewhite;
+}
+
+tr:nth-child(odd) {
+  background-color: lightblue;
+}
+
+tr:nth-child(even) {
+  background-color: lightgrey;
+}
+
+th {
+  background-color: darkgrey;
+  color: darkblue;
+  padding: 16px;
+}
+
+td {
+  padding: 10px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background-color: lightsalmon;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
